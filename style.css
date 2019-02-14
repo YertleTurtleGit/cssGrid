@@ -5,9 +5,136 @@
 }
 */
 
+:root {
+    --content-width: 500px;
+    --sidebar-width: 200px;
+
+    --header-height: 100px;
+    --footer-height: 200px;
+
+    --logo-width: 100px;
+    --logo-height: 100px;
+
+    --overall-padding: 5px 20px 5px 20px;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     color: black;
     border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+#all-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: grid;
+
+    grid-template-columns: auto var(--content-width) var(--sidebar-width) auto;
+    grid-template-rows: var(--header-height) auto var(--footer-height);
+    grid-template-areas:
+    'header     header      header      header'
+    '.          content     sidebar     .'
+    'footer     footer      footer      footer';
+}
+
+#header {
+    grid-area: header;
+    background-color: red;
+    color: white;
+    display: grid;
+    grid-template-columns: auto var(--logo-width) auto auto;
+    grid-auto-rows: 100%;
+    grid-template-areas:
+    '. header-element-a header-element-b .';
+}
+
+#header > * {
+    padding: var(--overall-padding);
+}
+
+#content {
+    grid-area: content;
+    background-color: lightgrey;
+    color: black;
+    padding: var(--overall-padding);
+}
+
+#sidebar {
+    grid-area: sidebar;
+    background-color: grey;
+    color: white;
+    padding: var(--overall-padding);
+}
+
+#footer {
+    grid-area: footer;
+    background-color: blue;
+    color: white;
+
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 100%;
+    grid-template-areas:
+    'footer-element-a footer-element-b footer-element-c';
+}
+
+#footer > * {
+    padding: var(--overall-padding);
+}
+
+#header-element-a {
+    grid-area: header-element-a;
+}
+
+#header-element-b {
+    grid-area: header-element-b;
+}
+
+#footer-element-a {
+    grid-area: footer-element-a;
+}
+
+#footer-element-b {
+    grid-area: footer-element-b;
+}
+
+#footer-element-c {
+    grid-area: footer-element-c;
+}
+
+@media (max-width: 700px) {
+    #all-container {
+        grid-template-columns: 100%;
+        grid-template-rows: var(--header-height) auto auto var(--footer-height);
+        grid-template-areas:
+        'header'
+        'content'
+        'sidebar'
+        'footer';
+    }
+}
+
+@media (max-width: 500px) {
+    #all-container {
+        grid-template-rows: auto auto auto auto;
+    }
+    #header {
+        grid-template-columns: 100%;
+        grid-auto-rows: var(--logo-height) auto;
+        grid-template-areas:
+        'header-element-a'
+        'header-element-b';
+    }
+    #footer {
+        grid-template-columns: 100%;
+        grid-template-rows: 33% 33% 33%;
+        grid-template-areas:
+        'footer-element-a'
+        'footer-element-b'
+        'footer-element-c';
+    }
 }
